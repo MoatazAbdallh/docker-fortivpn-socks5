@@ -22,10 +22,10 @@ RUN \
     | tar xz -C /go/src/github.com/nadoo/glider --strip-components=1 && \
   cd /go/src/github.com/nadoo/glider && \
   go get -v ./...
-COPY entrypoint.sh /usr/bin/
+COPY entrypoint.sh /opt/atlassian/pipelines/agent/build/usr/bin/
 
 FROM alpine:3.11
 RUN apk add --no-cache ca-certificates openssl ppp
-COPY --from=builder /usr/bin/openfortivpn /go/bin/glider /usr/bin/entrypoint.sh /usr/bin/
+COPY --from=builder /usr/bin/openfortivpn /go/bin/glider /usr/bin/entrypoint.sh /opt/atlassian/pipelines/agent/build/usr/bin/
 ENTRYPOINT ["/usr/bin/entrypoint.sh"]
 CMD ["openfortivpn"]
